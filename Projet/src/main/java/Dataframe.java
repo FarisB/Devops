@@ -8,6 +8,6 @@
  *
  * @author faris
  */
-public class Dataframe {
+public interface Dataframe {
     
 }
