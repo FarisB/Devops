@@ -17,7 +17,7 @@ class Column<E>{
     private ArrayList<E> lines;
     private String label;
 
-    Column(Object[] column, String label) throws MoreThanOneTypeException {
+    public Column(Object[] column, String label) throws MoreThanOneTypeException {
         this.lines = new ArrayList<E>();
         this.label = label;
         for(Object cell : column){ //Moche mais pas le choix

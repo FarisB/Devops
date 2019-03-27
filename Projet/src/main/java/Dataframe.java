@@ -1,5 +1,6 @@
 
 import exceptions.InvalidTypeException;
+import exceptions.MoreThanOneTypeException;
 import java.util.ArrayList;
 
 /*
@@ -16,7 +17,7 @@ public class Dataframe {
 
     private ArrayList<Column> columns;
     
-    public Dataframe(Object[][] contents, String[] labels) throws InvalidTypeException {
+    public Dataframe(Object[][] contents, String[] labels) throws InvalidTypeException, MoreThanOneTypeException {
         this.columns = new ArrayList<Column>();
         for(int index = 0; index < contents.length; index++){
             switch (contents[index][0].getClass().getName()) {
