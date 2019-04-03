@@ -49,11 +49,22 @@ public class Dataframe {
     }
     
     public String getJFirstLines(int j) {
-        if (this.columns.get(0).getLinesOfAColumn().size()<j || j<0)
+        if (this.columns.get(0).getLinesOfAColumn().size()<j || j < 0)
             throw new IndexOutOfBoundsException("Vous voulez afficher plus de ligne qu'il y en a.");
         String res = new String();
         for (Column column : this.columns) {
-                res += column.getColumn(0, j);
+            res += column.getColumn(0, j);
+        }
+        return res;
+    }
+    
+    public String getJLastLines(int j) {
+        if(this.columns.get(0).getLinesOfAColumn().size() < j || j < 0){
+            throw new IndexOutOfBoundsException("Vous voulez afficher plus de ligne qu'il y en a.");
+        }
+        String res = new String();
+        for (Column column : this.columns) {
+            res += column.getColumn(this.columns.get(0).getLinesOfAColumn().size()-j, this.columns.get(0).getLinesOfAColumn().size());
         }
         return res;
     }
@@ -64,6 +75,10 @@ public class Dataframe {
 
     public void displayJFirstLines(int j) {
         System.out.println(this.getJFirstLines(j));
+    }
+    
+    public void displayJLastLines(int j) {
+        System.out.println(this.getJLastLines(j));
     }
     
 }
