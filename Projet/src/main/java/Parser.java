@@ -1,24 +1,41 @@
 
 public class Parser {
-	static String un="Durand;Michel;Vincent;Antoine;Kanawasakishima";
-	static String deux="12;4;0;68;-8";
-	static String trois="20.0;10.0;600000.8;2.36;9.2";
+        public final int COLONNE_MAX = 50;
+        public int nbColonnes;
+	public String[] entry = new String[COLONNE_MAX];
+        public String[] types = new String[COLONNE_MAX];
+        
+        
+        
+        public Parser(String[] r){
+            for(int i=0;i<r.length;i++){
+                entry[i]=r[i];
+            }
+            nbColonnes=r.length;
+        }
         
         //j'ai meme pas honte
-        public static boolean checkNumber(char a){
+        public boolean checkNumber(char a){
             if(a=='0' || a=='1' || a=='2' || a=='3' || a=='4' || a=='5' || a=='6' || a=='7' || a=='8' || a=='9'){
                     return true;
             }
             return false;
         }
+        
+        public String[] parseAll(){
+            for(int i=0;i<nbColonnes;i++){
+                types[i]=parse(i);
+            }
+            return types;
+        }
 	
-	public static void main(String[] args) {
+	public String parse(int line) {
 		boolean k=true;
                 String cas="Int";
                 String elem;
                 int i;
                 int j;
-                String S=trois;
+                String S=entry[line];
                 
                 //On cherche le type
                 i=S.indexOf(";");
@@ -51,7 +68,6 @@ public class Parser {
                         cas="Float";
                     }
                 }
-                System.out.print("Le type trouve est "+cas+"\n\n");
                 //On decoupe
 		i=0;
                 j=S.indexOf(";");
@@ -61,7 +77,6 @@ public class Parser {
 		while (j!=-1){
 			elem=S.substring(i,j);
 			
-			System.out.println(elem);
                         i=j+1;
                         j=S.indexOf(";",i);
 
@@ -71,8 +86,9 @@ public class Parser {
 			k=false;
 		}
                 elem=S.substring(i,S.length());
-                System.out.println(elem);
+                return cas;
 		
 	}
+        
 }
  
