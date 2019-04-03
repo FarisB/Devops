@@ -29,4 +29,33 @@ class Column<E>{
         }
     }
     
+    public String getColumn(){
+        String res = new String();
+        res += this.label + ": ";
+        for(E cell : this.lines){
+            res += cell + " ";
+        }
+        res+= "\n";
+        return res;
+    }
+    
+      public String getColumn(int i, int j){ // i le debut et j la fin
+        String res = new String();
+        res += this.label + ": ";
+        for (int index = i; index < j; index++) {
+            res += this.lines.get(index) + " ";
+        }
+        res+= "\n";
+        return res;
+    }
+    
+    public ArrayList<E> getLinesOfAColumn() {
+        return lines;
+    }
+    
+    public String getLabel() {
+        return label;
+    }
+    
+    
 }
