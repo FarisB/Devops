@@ -1,9 +1,17 @@
 
+import com.sun.tools.javac.util.StringUtils;
+import exceptions.MoreThanOneTypeException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 public class Parser {
+        public final int LIGNE_MAX = 50;
         public final int COLONNE_MAX = 50;
-        public int nbColonnes;
-	public String[] entry = new String[COLONNE_MAX];
-        public String[] types = new String[COLONNE_MAX];
+        public int nbLignes;
+        public int nbColonnes=0;
+	public String[] entry = new String[LIGNE_MAX];
+	public String[] label = new String[COLONNE_MAX];
         
         
         
@@ -11,7 +19,7 @@ public class Parser {
             for(int i=0;i<r.length;i++){
                 entry[i]=r[i];
             }
-            nbColonnes=r.length;
+            nbLignes=r.length;
         }
         
         //j'ai meme pas honte
@@ -22,24 +30,105 @@ public class Parser {
             return false;
         }
         
-        public String[] parseAll(){
-            for(int i=0;i<nbColonnes;i++){
-                types[i]=parse(i);
+        public void printTab1(String[] T){
+            for(int i=0;i<T.length;i++){
+                System.out.print(T[i]+" /");
             }
-            return types;
+            System.out.print("\n");
         }
-	
-	public String parse(int line) {
-		boolean k=true;
-                String cas="Int";
-                String elem;
-                int i;
-                int j;
-                String S=entry[line];
+        
+        public void printTab2(String[][] T){
+            for(int i=0;i<T.length;i++){
+                for(int j=0;j<T[0].length;j++){
+                    System.out.print(T[i][j]+" ");
+                }
+                System.out.print("\n");
+            }
+            System.out.print("\n");
+        }
+        
+        public void parseAll(){
+            //On recupere les labels
+            String labels[]=GetLabel();
+            nbColonnes=labels.length;
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+            printTab1(labels);
+            
+            //on cree les colonnes en checkant le type de la premiere ligne comme template
+            String types[]=checkTypeTout();
+            printTab1(types);
+            
+            //on cree le tableau 2d "contents"
+            String content[][]=parse();
+            printTab2(content);
+            
+        }
+        
+        public String[] GetLabel(){
+                String S=entry[0];
+                int i=0;
+                int j=S.indexOf(";");
+                String elem="";
+                //On regarde le nombre de colonnes
+                int compteur=0;
+                while (j!=-1){
+                    elem=S.substring(i,j);
+                    i=j+1;
+                    j=S.indexOf(";",i);
+      
+                    compteur++;
+                }
+                String r[]=new String[compteur+1];
                 
+                //On regarde les labels
+                compteur=0;
+                i=0;
+                j=S.indexOf(";");
+                while (j!=-1){
+                    elem=S.substring(i,j);
+                    r[compteur]=elem;
+                    i=j+1;
+                    j=S.indexOf(";",i);
+      
+                    compteur++;
+                }
+                elem=S.substring(i, S.length());
+                r[compteur]=elem;
+                return r;
+                
+        }
+        
+        public String[] checkTypeTout(){
+            String elems[]=new String[nbColonnes];
+            String types[]=new String[nbColonnes];
+            int j=0,k=0,i=0;
+            
+            k=entry[1].indexOf(";",j);
+            
+            for(i=0; i<nbColonnes && k!=-1;i++){
+                elems[i]=entry[1].substring(j,k);
+                types[i]=checkType(elems[i]);
+                j=k+1;
+                k=entry[1].indexOf(";",j);
+            }
+            if(k==-1){
+                elems[i]=entry[1].substring(j,entry[1].length());
+                types[i]=checkType(elems[i]);
+            }
+            
+            return types;
+                
+        }
+        
+        public String checkType(String elem){
+            boolean k=true;
+                String cas="Int";
+                int i=0;
+                int j=0;
+                
+               
                 //On cherche le type
-                i=S.indexOf(";");
-		elem=S.substring(0,i);
+                
                 
                 i=elem.indexOf(".");
                 if(i==-1){
@@ -68,27 +157,104 @@ public class Parser {
                         cas="Float";
                     }
                 }
+                return cas;
+        }
+        
+        public String[][] parse(){
+            String content[][]=new String[nbLignes-1][nbColonnes];
+            String line;
+            int a=0,b=0;
+            int i=0,j=0;
+            
+            
+            for(i=1;i<nbLignes;i++){
+                line=entry[i];
+                a=0;
+                b=line.indexOf(";",a);
+                for(j=0;j<nbColonnes&&b!=-1;j++){
+                    content[i-1][j]=line.substring(a, b);
+                    a=b+1;
+                    b=line.indexOf(";",a);
+                }
+                if(j<nbColonnes){
+                    content[i-1][j]=line.substring(a, line.length());
+                }
+            }
+            
+            return content;
+        }
+	/*
+	public Column parse(int line, String label) {
+            try {
+                boolean k=true;
+                //pour l'instant
+                String cas="Int";
+                String elem;
+                int i;
+                int j;
+                String S=entry[line];
+                
+                
                 //On decoupe
-		i=0;
+                i=0;
                 j=S.indexOf(";");
                 elem="";
                 k=true;
+                String s[]=new String[nbLignes];
+                Float f[]=new Float[nbLignes];
+                Integer it[]=new Integer[nbLignes];
+                int compteur=0;
                 
-		while (j!=-1){
-			elem=S.substring(i,j);
-			
-                        i=j+1;
-                        j=S.indexOf(";",i);
-
-			//On verifie son type
-			
-
-			k=false;
-		}
+                while (j!=-1){
+                    elem=S.substring(i,j);
+                    
+                    i=j+1;
+                    j=S.indexOf(";",i);
+                    switch(cas){
+                        case "String":
+                            s[compteur]=elem;
+                            break;
+                            
+                        case "Int":
+                            it[compteur]=Integer.parseInt(elem);
+                            break;
+                            
+                        case "Float":
+                            f[compteur]=Float.parseFloat(elem);
+                            break;
+                    }
+                    compteur++;
+                    
+                    //On verifie son type
+                    
+                    
+                    k=false;
+                }
                 elem=S.substring(i,S.length());
-                return cas;
+                Column coco=null;
+                switch(cas){
+                    case "String":
+                        s[compteur]=elem;
+                        coco=new Column(s, label);
+                        break;
+                        
+                    case "Int":
+                        it[compteur]=Integer.parseInt(elem);
+                        coco=new Column(it, label);
+                        break;
+                        
+                    case "Float":
+                        f[compteur]=Float.parseFloat(elem);
+                        coco=new Column(f, label);
+                        break;
+                }
+                return coco;
+            } catch (MoreThanOneTypeException ex) {
+                Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
+            }
 		
-	}
+        }*/
         
 }
  
