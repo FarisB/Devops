@@ -114,4 +114,13 @@ public class Dataframe {
         }
     }
     
+    public float getAverage(int colIndex){
+        if(colIndex > this.columns.size() || colIndex < 0){
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        else{
+            return this.columns.get(colIndex).averageCalculation();
+        }
+    }
+    
 }

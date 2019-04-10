@@ -56,6 +56,25 @@ class Column<E>{
     public String getLabel() {
         return label;
     }
+
+    public float averageCalculation() {
+        float sum = 0;
+        switch (this.lines.get(0).getClass().getName()){
+            case "java.lang.Integer":
+                for(int index = 0; index < this.lines.size(); index++){
+                    sum += (Integer) this.lines.get(index);
+                }
+                break;
+            case "java.lang.Double":
+                for(int index = 0; index < this.lines.size(); index++){
+                    sum += (Double) this.lines.get(index);
+                }
+                break;
+            default:
+                    throw new IllegalArgumentException("Impossible d'effectuer une moyenne sur ce type de données.");
+        }
+        return sum/this.lines.size();
+    }
     
     
 }
