@@ -1,6 +1,8 @@
 
 import exceptions.*;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.lang.model.type.UnknownTypeException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -37,6 +39,20 @@ public class Dataframe {
             }
         }
     }
+    
+//    public static Dataframe readFromFile(String path, String file) throws IOException, UnknownTypeException, MoreThanOneTypeException, DifferentSizeException, InvalidTypeException{
+//        String[][] contents = Parser.readCSV(path, file);
+//        String[] labels = Parser.getLabels(contents);
+//        ArrayList<Object[]> typedDataList = new ArrayList<Object[]>();
+//        for(String[] column : contents){
+//            typedDataList.add(Parser.getColumnWithRightType(column));
+//        }
+//        Object[][] typedData = new Object[typedDataList.size()][typedDataList.get(0).length];
+//        for(int i =0; i < typedDataList.size(); i++){
+//            typedData[i] = typedDataList.get(i);
+//        }
+//        return new Dataframe(typedData, labels);
+//    }
     
     public String getAllLines() {
         String res = new String();
