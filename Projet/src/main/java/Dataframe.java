@@ -1,7 +1,5 @@
 
-import exceptions.DifferentSizeException;
-import exceptions.InvalidTypeException;
-import exceptions.MoreThanOneTypeException;
+import exceptions.*;
 import java.util.ArrayList;
 
 /*
@@ -49,7 +47,7 @@ public class Dataframe {
     }
     
     public String getJFirstLines(int j) {
-        if (this.columns.get(0).getLinesOfAColumn().size()<j || j < 0)
+        if (this.columns.get(0).getLines().size()<j || j < 0)
             throw new IndexOutOfBoundsException("Vous voulez afficher plus de ligne qu'il y en a.");
         String res = new String();
         for (Column column : this.columns) {
@@ -59,12 +57,12 @@ public class Dataframe {
     }
     
     public String getJLastLines(int j) {
-        if(this.columns.get(0).getLinesOfAColumn().size() < j || j < 0){
+        if(this.columns.get(0).getLines().size() < j || j < 0){
             throw new IndexOutOfBoundsException("Vous voulez afficher plus de ligne qu'il y en a.");
         }
         String res = new String();
         for (Column column : this.columns) {
-            res += column.getColumn(this.columns.get(0).getLinesOfAColumn().size()-j, this.columns.get(0).getLinesOfAColumn().size());
+            res += column.getColumn(this.columns.get(0).getLines().size()-j, this.columns.get(0).getLines().size());
         }
         return res;
     }
@@ -79,6 +77,41 @@ public class Dataframe {
     
     public void displayJLastLines(int j) {
         System.out.println(this.getJLastLines(j));
+    }
+    
+    public Dataframe createSmallDataframe(int start, int end) throws BadArgsException {
+        // On check les arguments
+        for (Column column : this.columns) {
+            if(start > column.getLines().size() || start < 0 || end > column.getLines().size() || end < 0){
+                throw new ArrayIndexOutOfBoundsException();
+            }
+        }
+        if(end <= start){
+            throw new BadArgsException();
+        }
+        
+        //Création du mini dataframe en fonction de start et end
+        String[] miniLabels = new String[this.columns.size()];
+        Object[][] miniContents = new Object[this.columns.size()][end-start];
+
+        for(int index = 0; index < this.columns.size(); index++){
+            miniLabels[index] = this.columns.get(index).getLabel();
+        }
+
+        //Recopie du contenu situé entre start et end
+        int lineIndex = 0;
+        for(int indexInTheOldDF = start; indexInTheOldDF < end; indexInTheOldDF++){
+            for(int colIndex = 0; colIndex < this.columns.size(); colIndex++){
+                miniContents[colIndex][lineIndex] = this.columns.get(colIndex).getLines().get(indexInTheOldDF);
+            }
+            lineIndex++;
+        }
+        try {
+            return new Dataframe(miniContents, miniLabels);
+        } catch (Exception e) {
+            System.err.println("Création de Dataframe impossible pour les lignes de " + start + " Ã  " + end );
+            return null;
+        }
     }
     
 }

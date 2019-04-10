@@ -49,7 +49,7 @@ class Column<E>{
         return res;
     }
     
-    public ArrayList<E> getLinesOfAColumn() {
+    public ArrayList<E> getLines() {
         return lines;
     }
     
