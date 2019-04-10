@@ -45,6 +45,10 @@ public class Dataframe {
         }
         return res;
     }
+    public String getAllLines2() {
+        String res = new String();
+        return res;
+    }
     
     public String getJFirstLines(int j) {
         if (this.columns.get(0).getLines().size()<j || j < 0)
