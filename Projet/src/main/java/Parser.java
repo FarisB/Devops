@@ -1,6 +1,11 @@
 
 import com.sun.tools.javac.util.StringUtils;
 import exceptions.MoreThanOneTypeException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,6 +17,7 @@ public class Parser {
         public int nbColonnes=0;
 	public String[] entry = new String[LIGNE_MAX];
 	public String[] label = new String[COLONNE_MAX];
+        public boolean is_init=false;
         
         
         
@@ -20,6 +26,34 @@ public class Parser {
                 entry[i]=r[i];
             }
             nbLignes=r.length;
+            
+                String l[]=GetLabel();
+                nbColonnes=l.length;
+        }
+        
+        
+        
+        public Parser(File f){
+            try {
+                BufferedReader b;
+                String line="";
+                FileReader fr = new FileReader(f);
+                b=new BufferedReader(fr);
+                int i=0;
+                
+                
+                while((line = b.readLine()) != null) {
+                    entry[i]=line;
+                    i++;
+                }
+                nbLignes=i;
+                String l[]=GetLabel();
+                nbColonnes=l.length;
+                is_init=true;
+            } catch (IOException ex) {
+                Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("PutainXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+            }
         }
         
         //j'ai meme pas honte
@@ -52,8 +86,6 @@ public class Parser {
             
             String labels[]=GetLabel();
             nbColonnes=labels.length;
-            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            printTab1(labels);
             
             //on cree les colonnes en checkant le type de la premiere ligne comme template
             String types[]=checkTypeTout();
@@ -105,6 +137,7 @@ public class Parser {
             int j=0,k=0,i=0;
             
             k=entry[1].indexOf(";",j);
+            
             
             for(i=0; i<nbColonnes && k!=-1;i++){
                 elems[i]=entry[1].substring(j,k);
@@ -184,78 +217,8 @@ public class Parser {
             
             return content;
         }
-	/*
-	public Column parse(int line, String label) {
-            try {
-                boolean k=true;
-                //pour l'instant
-                String cas="Int";
-                String elem;
-                int i;
-                int j;
-                String S=entry[line];
-                
-                
-                //On decoupe
-                i=0;
-                j=S.indexOf(";");
-                elem="";
-                k=true;
-                String s[]=new String[nbLignes];
-                Float f[]=new Float[nbLignes];
-                Integer it[]=new Integer[nbLignes];
-                int compteur=0;
-                
-                while (j!=-1){
-                    elem=S.substring(i,j);
-                    
-                    i=j+1;
-                    j=S.indexOf(";",i);
-                    switch(cas){
-                        case "String":
-                            s[compteur]=elem;
-                            break;
-                            
-                        case "Int":
-                            it[compteur]=Integer.parseInt(elem);
-                            break;
-                            
-                        case "Float":
-                            f[compteur]=Float.parseFloat(elem);
-                            break;
-                    }
-                    compteur++;
-                    
-                    //On verifie son type
-                    
-                    
-                    k=false;
-                }
-                elem=S.substring(i,S.length());
-                Column coco=null;
-                switch(cas){
-                    case "String":
-                        s[compteur]=elem;
-                        coco=new Column(s, label);
-                        break;
-                        
-                    case "Int":
-                        it[compteur]=Integer.parseInt(elem);
-                        coco=new Column(it, label);
-                        break;
-                        
-                    case "Float":
-                        f[compteur]=Float.parseFloat(elem);
-                        coco=new Column(f, label);
-                        break;
-                }
-                return coco;
-            } catch (MoreThanOneTypeException ex) {
-                Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
-                return null;
-            }
-		
-        }*/
+        
+	
         
 }
  
