@@ -71,10 +71,55 @@ class Column<E>{
                 }
                 break;
             default:
-                    throw new IllegalArgumentException("Impossible d'effectuer une moyenne sur ce type de données.");
+                    throw new IllegalArgumentException("Pas de moyenne sur ce type de données.");
         }
         return sum/this.lines.size();
     }
+
+    double findMinimum() {
+        switch (this.lines.get(0).getClass().getName()){
+            case "java.lang.Integer":
+                Integer maxInt = (Integer) this.lines.get(0);
+                for(int index = 1; index < this.lines.size(); index++){
+                    if((Integer) maxInt > (Integer) this.lines.get(index)){
+                        maxInt = (Integer) this.lines.get(index);
+                    }
+                }
+                return maxInt * 1.0;
+            case "java.lang.Double":
+                Double minD = (Double) this.lines.get(0);
+                for(int index = 1; index < this.lines.size(); index++){
+                    if((Double) minD > (Double) this.lines.get(index)){
+                        minD = (Double) this.lines.get(index);
+                    }
+                }
+                return minD;
+            default:
+                throw new IllegalArgumentException("Pas de minimum sur ce type de données.");
+        }
+    }
     
+    public double findMaximum() {
+        switch (this.lines.get(0).getClass().getName()){
+            case "java.lang.Integer":
+                Integer maxInt = (Integer) this.lines.get(0);
+                for(int index = 1; index < this.lines.size(); index++){
+                    if((Integer) maxInt < (Integer) this.lines.get(index)){
+                        maxInt = (Integer) this.lines.get(index);
+                    }
+                }
+                return maxInt * 1.0; // on est obligé de reoutner un double
+            case "java.lang.Double":
+                Double maxD = (Double) this.lines.get(0);
+                for(int index = 1; index < this.lines.size(); index++){
+                    if((Double) maxD < (Double) this.lines.get(index)){
+                        maxD = (Double) this.lines.get(index);
+                    }
+                }
+                return maxD;
+            default:
+                throw new IllegalArgumentException("Pas de maximum sur ce type de données.");
+        }
+    }
     
 }

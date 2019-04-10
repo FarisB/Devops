@@ -123,4 +123,35 @@ public class Dataframe {
         }
     }
     
+    public void displayAverage(int i){
+        System.out.println(getAverage(i));
+    }
+    
+  
+	
+    public double getMin(int i){
+        if(i > this.columns.size() || i < 0){
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        else{
+            return this.columns.get(i).findMinimum();
+        }
+    }
+
+    public double getMax(int i){
+        if(i > this.columns.size() || i < 0){
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        else{
+            return (Double) this.columns.get(i).findMaximum();
+        }
+    }
+    
+    public void displayMin(int i){
+        System.out.println(getMin(i));
+    }     
+     
+    public void displayMax(int i){
+        System.out.println(getMax(i));
+    }
 }
