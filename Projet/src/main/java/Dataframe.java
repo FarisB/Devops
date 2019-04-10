@@ -47,7 +47,7 @@ public class Dataframe {
 //        for(String[] column : contents){
 //            typedDataList.add(Parser.getColumnWithRightType(column));
 //        }
-//        Object[][] typedData = new Object[typedDataList.size()][typedDataList.get(0).length];
+//        Object[][] typedData = new Object[typedDataList.siz   e()][typedDataList.get(0).length];
 //        for(int i =0; i < typedDataList.size(); i++){
 //            typedData[i] = typedDataList.get(i);
 //        }
