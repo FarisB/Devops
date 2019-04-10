@@ -96,6 +96,7 @@ class Column<E>{
                 return minD;
             default:
                 throw new IllegalArgumentException("Pas de minimum sur ce type de données.");
+        
         }
     }
     

@@ -10,6 +10,7 @@ package exceptions;
  * @author faris
  */
 public class DifferentSizeException extends Exception {
+    
 
     /**
      * Creates a new instance of <code>DifferentSizeException</code> without

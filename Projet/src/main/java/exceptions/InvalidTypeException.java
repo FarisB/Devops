@@ -11,6 +11,7 @@ package exceptions;
  */
 public class InvalidTypeException extends Exception {
 
+    
     /**
      * Creates a new instance of <code>InvalidTypeException</code> without
      * detail message.

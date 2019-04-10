@@ -11,6 +11,7 @@ package exceptions;
  */
 public class BadArgsException extends Exception {
 
+    
     /**
      * Creates a new instance of <code>BadArgsException</code> without detail
      * message.

@@ -145,6 +145,7 @@ public class Dataframe {
         else{
             return (Double) this.columns.get(i).findMaximum();
         }
+        
     }
     
     public void displayMin(int i){

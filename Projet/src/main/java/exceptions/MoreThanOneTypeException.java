@@ -10,6 +10,7 @@ package exceptions;
  * @author faris
  */
 public class MoreThanOneTypeException extends Exception {
+    
 
     /**
      * Creates a new instance of <code>MoreThanOneTypeException</code> without

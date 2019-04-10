@@ -49,6 +49,7 @@ public class Parser {
         
         public void parseAll(){
             //On recupere les labels
+            
             String labels[]=GetLabel();
             nbColonnes=labels.length;
             System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
