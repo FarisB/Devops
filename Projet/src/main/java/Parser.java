@@ -51,10 +51,10 @@ public class Parser {
             }else{		
                 try{
                     res[i - 1] = Integer.parseInt(column[i]);
-                }catch(Exception e2){
+                }catch(Exception e1){
                     try{
                         res[i-1] = Double.parseDouble(column[i]);
-                    }catch(Exception e3){
+                    }catch(Exception e2){
                         res[i-1] = column[i];
                     }
                 }
