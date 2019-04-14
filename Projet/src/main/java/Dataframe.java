@@ -40,19 +40,20 @@ public class Dataframe {
         }
     }
     
-//    public static Dataframe readFromFile(String path, String file) throws IOException, UnknownTypeException, MoreThanOneTypeException, DifferentSizeException, InvalidTypeException{
-//        String[][] contents = Parser.readCSV(path, file);
-//        String[] labels = Parser.getLabels(contents);
-//        ArrayList<Object[]> typedDataList = new ArrayList<Object[]>();
-//        for(String[] column : contents){
-//            typedDataList.add(Parser.getColumnWithRightType(column));
-//        }
-//        Object[][] typedData = new Object[typedDataList.siz   e()][typedDataList.get(0).length];
-//        for(int i =0; i < typedDataList.size(); i++){
-//            typedData[i] = typedDataList.get(i);
-//        }
-//        return new Dataframe(typedData, labels);
-//    }
+    //Préconstructeur pour les dataframes à partir d'un fichier CSV
+    public static Dataframe DataframeFromCSVFile(String path, String file) throws IOException, UnknownTypeException, MoreThanOneTypeException, DifferentSizeException, InvalidTypeException{
+        String[][] contents = Parser.CSVtoTab(path, file);
+        String[] dataframeLabels = Parser.getLabelsFromTab(contents);
+        ArrayList<Object[]> tmpContent = new ArrayList<Object[]>();
+        for(String[] column : contents){
+            tmpContent.add(Parser.getColumnWithParsing(column));
+        }
+        Object[][] dataframeContent = new Object[tmpContent.size()][tmpContent.get(0).length];
+        for(int i =0; i < tmpContent.size(); i++){
+            dataframeContent[i] = tmpContent.get(i);
+        }
+        return new Dataframe(dataframeContent, dataframeLabels);
+    }
     
     public String getAllLines() {
         String res = new String();
@@ -83,18 +84,7 @@ public class Dataframe {
         return res;
     }
     
-    public void displayAllLines() {
-        System.out.println(this.getAllLines());
-    }
-
-    public void displayJFirstLines(int j) {
-        System.out.println(this.getJFirstLines(j));
-    }
-    
-    public void displayJLastLines(int j) {
-        System.out.println(this.getJLastLines(j));
-    }
-    
+  
     public Dataframe createSmallDataframe(int start, int end) throws BadArgsException {
         // On check les arguments
         for (Column column : this.columns) {
@@ -130,6 +120,14 @@ public class Dataframe {
         }
     }
     
+    public Dataframe createDataframeFromFirstLines(int i) throws BadArgsException {
+            return createSmallDataframe(0,i);
+    }
+
+    public Dataframe createDataframeFromLastLines(int i) throws BadArgsException {
+            return createSmallDataframe(this.columns.get(0).getLines().size()-i,this.columns.get(0).getLines().size());
+    }
+    
     public float getAverage(int colIndex){
         if(colIndex > this.columns.size() || colIndex < 0){
             throw new ArrayIndexOutOfBoundsException();
@@ -137,12 +135,7 @@ public class Dataframe {
         else{
             return this.columns.get(colIndex).averageCalculation();
         }
-    }
-    
-    public void displayAverage(int i){
-        System.out.println(getAverage(i));
-    }
-    
+    } 
   
 	
     public double getMin(int i){
@@ -161,8 +154,20 @@ public class Dataframe {
         else{
             return (Double) this.columns.get(i).findMaximum();
         }
-        
     }
+    
+    public void displayAllLines() {
+        System.out.println(this.getAllLines());
+    }
+
+    public void displayJFirstLines(int j) {
+        System.out.println(this.getJFirstLines(j));
+    }
+    
+    public void displayJLastLines(int j) {
+        System.out.println(this.getJLastLines(j));
+    }
+    
     
     public void displayMin(int i){
         System.out.println(getMin(i));
@@ -170,5 +175,9 @@ public class Dataframe {
      
     public void displayMax(int i){
         System.out.println(getMax(i));
+    }
+    
+    public void displayAverage(int i){
+        System.out.println(getAverage(i));
     }
 }
