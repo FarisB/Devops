@@ -13,11 +13,11 @@ Construction du dataframe :
 
 Fonctionnalités de notre dataframe :
 
--Creer une chaine de caractères des j premières lignes d'un dataframe, les j dernières lignes,où toutes les lignes (utile pour retourner cela sur la sortie standard). Affichage de ces tout ces elements avec les fonctions displayJFirstLines, displayJLastLines, displayAllLines à la fin de la classe Dataframe.
+- Creer une chaine de caractères des j premières lignes d'un dataframe, les j dernières lignes,où toutes les lignes (utile pour retourner cela sur la sortie standard). Affichage de ces tout ces elements avec les fonctions displayJFirstLines, displayJLastLines, displayAllLines à la fin de la classe Dataframe.
 
--Creer un sous Dataframe à partir des j premières lignes d'un dataframe, où les j dernières lignes, où les lignes entre l'indice de début et de fin.
+- Creer un sous Dataframe à partir des j premières lignes d'un dataframe, où les j dernières lignes, où les lignes entre l'indice de début et de fin.
 
--Obtenir toutes les statistiques demandés sur les colonnes contenants des entiers ou flottants (moyenne,maximum,minimum).
+- Obtenir toutes les statistiques demandés sur les colonnes contenants des entiers ou flottants (moyenne,maximum,minimum).
 
 Gestion du projet :
 
