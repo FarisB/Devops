@@ -17,12 +17,12 @@ Fonctionnalités de notre dataframe :
 
 - Creer un sous Dataframe à partir des j premières lignes d'un dataframe, où les j dernières lignes, où les lignes entre l'indice de début et de fin.
 
-- Obtenir toutes les statistiques demandés sur les colonnes contenants des entiers ou flottants (moyenne,maximum,minimum).
+- Obtenir toutes les statistiques demandées sur les colonnes contenant des entiers ou flottants (moyenne,maximum,minimum).
 
 Gestion du projet :
 
-Nous avons géré ce projet sous Netbeans, aucune instruction sous ligne de commande n'est necessaire. Pour lancer les tests ou compiler nous passons par Maven en faisant clic droit sur le projet -> Maven -> Goals -> on tape "test"  ou "compile". Les 34 tests passent tous. La couverture de code est disponible en faisant clic droit sur le projet -> Code Coverage -> Show report -> Run All tests. On a une couverture totale de 90.72%. Nous avons utiliser le plugin JaCoCo pour Maven afin d'avoir accès au Code Coverage.
+Nous avons géré ce projet sous Netbeans, aucune instruction sous ligne de commande n'est necessaire. Pour lancer les tests ou compiler nous passons par Maven en faisant clic droit sur le projet -> Maven -> Goals -> on tape "test" ou "compile". Les 34 tests passent tous. La couverture de code est disponible en faisant clic droit sur le projet -> Code Coverage -> Show report -> Run All tests. On a une couverture totale de 90.72%. Nous avons utiliser le plugin JaCoCo pour Maven afin d'avoir accès au Code Coverage.
 
 Feedback :
 
-Le projet s'est bien deroulé, le modèle du dataframe à implémenter n'est ni trop simple, ni trop dur même si c'est un peu long. Le fait de pouvoir manipuler différents outils de gestion de projet fut très intéressants car nous n'avions jamais pu les experimenter auparavant. 
+Le projet s'est bien deroulé, le modèle du dataframe à implémenter n'est ni trop simple, ni trop dur même si c'est un peu long. Le fait de pouvoir manipuler différents outils de gestion de projet fut très intéressant car nous n'avions jamais pu les experimenter auparavant. 
